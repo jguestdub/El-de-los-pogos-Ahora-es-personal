@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://da5eikfgije01"]
+
+[ext_resource type="Script" uid="uid://7ilokemsuv10" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://bvsdk7ucql4qo" path="res://scenes/level.tscn" id="2_level"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="3_player"]
+[ext_resource type="Script" uid="uid://de2w51yoj6hsg" path="res://scripts/t_narrador.gd" id="4_jyhfs"]
+[ext_resource type="AudioStream" uid="uid://s60ihsdua5c2" path="res://assets/narrador/intro_narrador.mp3" id="5_tbgi4"]
+
+[node name="Main" type="Node2D" unique_id=1334761373]
+script = ExtResource("1_main")
+
+[node name="Level" parent="." unique_id=55466894 instance=ExtResource("2_level")]
+
+[node name="Player" parent="." unique_id=2124464089 instance=ExtResource("3_player")]
+position = Vector2(1000, -30)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=571647999]
+zoom = Vector2(0.8, 0.8)
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1221029220]
+
+[node name="HUD" type="Label" parent="UI" unique_id=2009751933]
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 520.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "ALTURA: 0 m"
+
+[node name="Controls" type="Label" parent="UI" unique_id=452755428]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -64.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.9, 0.93, 1, 0.8)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 15
+text = "A / D o ← →: inclinar el pogo
+ESPACIO (mantener y soltar): saltar     B: bailar     R: checkpoint     ESC: pausa"
+horizontal_alignment = 2
+
+[node name="ChargeLabel" type="Label" parent="UI" unique_id=1268517118]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -76.0
+offset_right = 300.0
+offset_bottom = -52.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "FUERZA DEL SALTO"
+
+[node name="ChargeBar" type="ProgressBar" parent="UI" unique_id=1078100367]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -48.0
+offset_right = 284.0
+offset_bottom = -24.0
+grow_vertical = 0
+show_percentage = false
+
+[node name="Hint" type="Label" parent="UI" unique_id=889307626]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -360.0
+offset_right = 420.0
+offset_bottom = -230.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 26
+text = "A / D (o ← →): inclinar el pogo
+MANTÉN ESPACIO para cargar y SUÉLTALO para saltar
+B: bailar (solo usalo en casos de suma urgencia)
+ESC: acceso al menu"
+horizontal_alignment = 1
+
+[node name="ZoneBanner" type="Label" parent="UI" unique_id=745945426]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 70.0
+offset_right = 400.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+horizontal_alignment = 1
+
+[node name="WinPanel" type="PanelContainer" parent="UI" unique_id=986715124]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -150.0
+offset_right = 260.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="UI/WinPanel" unique_id=1872126438]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="WinLabel" type="Label" parent="UI/WinPanel/Margin" unique_id=1509249158]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 26
+text = "¡LLEGASTE A LA CIMA!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitulos" type="Label" parent="." unique_id=967901907]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 473.0
+offset_right = 1152.0
+offset_bottom = 535.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("4_jyhfs")
+
+[node name="Narrador" type="AudioStreamPlayer2D" parent="Subtitulos" unique_id=1056806959]
+stream = ExtResource("5_tbgi4")

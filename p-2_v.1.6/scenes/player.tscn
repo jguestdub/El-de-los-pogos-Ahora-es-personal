@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Texture2D" path="res://assets/generated/player_3.png" id="2_sprite"]
+[ext_resource type="Script" path="res://scripts/dancer.gd" id="3_dancer"]
+[ext_resource type="PackedScene" path="res://assets/models/personaje_voxel_gangnam.glb" id="4_model"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(26, 60)
+
+[sub_resource type="Environment" id="Environment_dance"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.6
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(0, 30)
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+texture_filter = 1
+position = Vector2(0, -32)
+texture = ExtResource("2_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Dust" type="CPUParticles2D" parent="."]
+z_index = 5
+emitting = false
+amount = 8
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 80.0
+gravity = Vector2(0, 420)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.9, 0.9, 0.85, 0.8)
+
+[node name="Dancer" type="Node2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(0, 30)
+script = ExtResource("3_dancer")
+
+[node name="Sprite" type="Sprite2D" parent="Dancer"]
+position = Vector2(0, -35)
+scale = Vector2(0.483, 0.483)
+
+[node name="Viewport" type="SubViewport" parent="Dancer"]
+own_world_3d = true
+transparent_bg = true
+msaa_3d = 2
+size = Vector2i(224, 224)
+
+[node name="Environment" type="WorldEnvironment" parent="Dancer/Viewport"]
+environment = SubResource("Environment_dance")
+
+[node name="Light" type="DirectionalLight3D" parent="Dancer/Viewport"]
+position = Vector3(0, 8, 6)
+rotation_degrees = Vector3(-35, 25, 0)
+light_energy = 0.8
+
+[node name="Camera" type="Camera3D" parent="Dancer/Viewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 20)
+projection = 1
+size = 11.6
+near = 0.5
+far = 60.0
+
+[node name="Model" parent="Dancer/Viewport" instance=ExtResource("4_model")]

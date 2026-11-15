@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cudxp1vxvmusd"]
+
+[ext_resource type="Script" uid="uid://b8sv7iuigk6vy" path="res://scripts/loading_screen.gd" id="1_loading"]
+
+[node name="LoadingScreen" type="Control" unique_id=2138957922]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_loading")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1821447960]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.09, 0.13, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=620860411]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=596404207]
+layout_mode = 2
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Title" type="Label" parent="Center/VBox" unique_id=1085546466]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.75, 1, 1)
+theme_override_font_sizes/font_size = 72
+text = "El de los pogos:
+Ahora es personal"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="Center/VBox" unique_id=1124707715]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 26
+text = "CARGANDO... :v"
+horizontal_alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="Center/VBox" unique_id=172921845]
+custom_minimum_size = Vector2(460, 26)
+layout_mode = 2
+show_percentage = false
+
+[node name="Prompt" type="Label" parent="Center/VBox" unique_id=25081136]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "PRESIONA ESPACIO PARA JUGAR"
+horizontal_alignment = 1
